@@ -1,0 +1,11 @@
+
+
+@for (node of routeNodes; track node.path) {
+    <div class="breadcrumb">
+        @if (node| guardType:isContentNode) {
+            <a class="label" (click)="selectNode(node)">{{node.label || (node.path | words) }}</a>
+        } @else {
+            <div class="label">{{node.label || (node.path | words)}}</div>
+        }
+    </div>
+}

@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use "@jamesbenrobb/styles/theme" as theme;
+
+
+@mixin setJBRDRAVars($light-theme: null, $dark-theme: null, $side-menu-width: null) {
+
+  $default-themes: theme.get-default-themes();
+
+  @if $light-theme == null {
+    $light-theme: nth($default-themes, 1);
+  }
+
+  @if $dark-theme == null {
+    $dark-theme: nth($default-themes, 2);
+  }
+
+  @if $side-menu-width != null {
+    --jbr-dra-side-menu-width: #{$side-menu-width};
+  }
+
+  $palettes: theme.get-mode-palettes-for(primary, $light-theme, $dark-theme);
+  $light-palette: nth($palettes, 1);
+  $dark-palette: nth($palettes, 2);
+
+  $link-colors: theme.get-mode-colors-for(
+    $palette-type: primary,
+    $type: default,
+    $light-theme: $light-theme,
+    $dark-theme: $dark-theme
+  );
+
+  --jbr-dra-link-color: #{nth($link-colors, 1)};
+  @include setMenuItemColors($light-palette, #a1a1a1);
+
+  @media (prefers-color-scheme: dark) {
+    --jbr-dra-link-color: #{nth($link-colors, 2)};
+    @include setMenuItemColors($dark-palette, #efefef);
+  }
+}
+
+
+@mixin setMenuItemColors($palette, $inactive-color, $total:8) {
+  @for $i from 0 through $total {
+    @if $i == 0 {
+      --jbr-dra-side-menu-item-color-0: #{$inactive-color};
+    } @else {
+      --jbr-dra-side-menu-item-color-#{$i}: #{map.get($palette, (900 - (($i - 1) * 100)))};
+    }
+  }
+}

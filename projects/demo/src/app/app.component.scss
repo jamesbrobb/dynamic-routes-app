@@ -1,0 +1,9 @@
+@use "jbr-dra-styles" as dra;
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  @include dra.setJBRDRAVars($side-menu-width: 400px);
+}

@@ -1,0 +1,6 @@
+@if (routeNodes$ | async; as routeNodes) {
+
+  @if (routeNodes.length > 0) {
+    <div>{{routeNodes[routeNodes.length - 1] | json}}</div>
+  }
+}

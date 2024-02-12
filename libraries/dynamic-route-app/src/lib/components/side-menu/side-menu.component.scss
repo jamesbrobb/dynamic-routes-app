@@ -1,0 +1,89 @@
+
+$start-left: 37px;
+$depth: 8;
+
+
+@mixin _colorVars($total:1) {
+  @for $i from 0 through $total {
+    --menu-color-item-color-#{$i}: var(--jbr-dra-side-menu-item-color-#{$i});
+  }
+}
+
+@mixin _activeMenuItemColours($total:1) {
+  @for $i from 0 through $total {
+    &.active-#{$i} {
+      color: var(--menu-color-item-color-#{$i});
+    }
+  }
+}
+
+@mixin _menuItemScales($total: 1) {
+  @for $i from 0 through $total {
+    &.active-#{$i} {
+      ::ng-deep {
+        .mdc-button__label {
+          transform: scale(#{1 + (0.01 * $i)});
+          transform-origin: center left;
+          transition: transform 400ms;
+        }
+      }
+    }
+  }
+}
+
+@mixin _nestedMenuItemPositions($total:1, $i:1) {
+  @if $i <= $total {
+    &> mat-nested-tree-node {
+      &> div.mat-tree-node > .mat-mdc-button {
+        padding-left: 10px * $i;
+      }
+      &> div[role=group] {
+        &> mat-tree-node > .mat-mdc-button {
+          padding-left: (10px * $i) + $start-left;
+        }
+        @include _nestedMenuItemPositions($total, $i + 1);
+      }
+    }
+  }
+}
+
+
+:host {
+  display: block;
+  padding: 20px 0;
+
+  @include _colorVars($depth);
+
+  .side-menu-tree {
+    height: 100%;
+  }
+
+  .side-menu-tree-invisible {
+    display: none;
+  }
+
+  .mat-mdc-button {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 0;
+    text-transform: capitalize;
+    text-align: left;
+    transition: color 400ms;
+
+    @include _activeMenuItemColours($depth);
+    @include _menuItemScales($depth);
+  }
+
+  mat-tree {
+
+    div[role=group] {
+      overflow: hidden;
+    }
+
+    &> mat-tree-node > .mat-mdc-button {
+      padding-left: $start-left;
+    }
+
+    @include _nestedMenuItemPositions($depth);
+  }
+}
