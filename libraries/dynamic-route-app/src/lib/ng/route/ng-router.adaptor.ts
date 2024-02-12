@@ -17,7 +17,7 @@ export class NgRouterAdaptor<T extends ContentNodeContentType> implements Router
     return this.#routeNodes.getValue();
   }
 
-  constructor(router: Router, titleService: Title, appName: string) {
+  constructor(router: Router, titleService: Title, appName: string = '') {
     this.#router = router;
     this.#router.events
       .pipe(filter(event => event instanceof NavigationEnd || event instanceof ResolveEnd))
@@ -25,8 +25,12 @@ export class NgRouterAdaptor<T extends ContentNodeContentType> implements Router
 
         if(event instanceof ResolveEnd) {
           const routedNodes = event.state.root.firstChild?.data['routeNodes'] || [],
-            title = `${appName}${routedNodes.length ? ` - ${routedNodes[routedNodes.length - 1].label}` : ''}`
+            currentRoute = routedNodes.length ? routedNodes[routedNodes.length - 1] : null,
+            currentRouteTitle = currentRoute ? `${currentRoute.label ?? currentRoute.path.replaceAll('-', ' ') }` : '',
+            title = `${appName}${appName && currentRouteTitle ? ' - ' : ''} ${currentRouteTitle}`;
+
           titleService.setTitle(title);
+
           this.#routeNodes.next(routedNodes);
         }
 

@@ -1,13 +1,13 @@
 import {EnvironmentProviders, Provider, Type} from "@angular/core";
-import {ActivatedRoute, provideRouter, Router} from "@angular/router";
+import {provideRouter, Router} from "@angular/router";
 import {ConfigLoader} from "@jamesbenrobb/core";
+import {Title} from "@angular/platform-browser";
 import {getRouteConfigProviders, RoutesConfigService} from "./config/route-config.providers";
 import {getAppRoutes} from "./routes";
 import {ContentNodeContentType, getAllChildNodes, RoutesConfig} from "./config/route-config.types";
 import {RouteManager} from "./route.manager";
 import {NgRouterAdaptor} from "../ng/route/ng-router.adaptor";
 import {JBRDRARootRouteComponent} from "./components/root-route.component.type";
-import {Title} from "@angular/platform-browser";
 
 
 
