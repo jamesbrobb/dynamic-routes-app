@@ -1,11 +1,11 @@
 import {ComponentLoaderMapService} from "@jamesbenrobb/ui";
-import {EnvironmentProviders, makeEnvironmentProviders} from "@angular/core";
+import {EnvironmentProviders, makeEnvironmentProviders, Provider} from "@angular/core";
 import {ContentComponentTypeService} from "../../route/components/root-route.component";
 
 
 export function getContentComponentProviders(componentType?: string): EnvironmentProviders {
 
-  return makeEnvironmentProviders([{
+  const providers: Provider[] = [{
     provide: ComponentLoaderMapService,
     useValue: {
       'default-app-content': {
@@ -14,8 +14,14 @@ export function getContentComponentProviders(componentType?: string): Environmen
       },
     },
     multi: true
-  }, {
-    provide: ContentComponentTypeService,
-    useValue: componentType || 'default-app-content'
-  }]);
+  }];
+
+  if(componentType) {
+    providers.push({
+      provide: ContentComponentTypeService,
+      useValue: componentType
+    });
+  }
+
+  return makeEnvironmentProviders(providers);
 }

@@ -30,21 +30,9 @@
   );
 
   --jbr-dra-link-color: #{nth($link-colors, 1)};
-  @include setMenuItemColors($light-palette, #a1a1a1);
+  --jbr-dra-side-menu-item-color-1: var(--jbr-dra-link-color);
 
   @media (prefers-color-scheme: dark) {
     --jbr-dra-link-color: #{nth($link-colors, 2)};
-    @include setMenuItemColors($dark-palette, #efefef);
-  }
-}
-
-
-@mixin setMenuItemColors($palette, $inactive-color, $total:8) {
-  @for $i from 0 through $total {
-    @if $i == 0 {
-      --jbr-dra-side-menu-item-color-0: #{$inactive-color};
-    } @else {
-      --jbr-dra-side-menu-item-color-#{$i}: #{map.get($palette, (900 - (($i - 1) * 100)))};
-    }
   }
 }

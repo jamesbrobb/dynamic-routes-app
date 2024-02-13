@@ -4,10 +4,16 @@ import {MatDividerModule} from "@angular/material/divider";
 import {ContentNodeContentType, RouteNode} from "../config/route-config.types";
 import {RouteManager} from "../route.manager";
 import {BreadcrumbsComponent} from "../../components/breadcrumbs/breadcrumbs.component";
-import {AppContentLoaderDirective} from "../../components/app-content-loader/app-content-loader.directive";
+import {
+  AppContentLoaderDirective,
+  DEFAULT_CONTENT_LOADER_COMPONENT
+} from "../../components/app-content-loader/app-content-loader.directive";
 
 
-export const ContentComponentTypeService = new InjectionToken<string>('ContentComponentTypeService');
+export const ContentComponentTypeService = new InjectionToken<string>(
+  'ContentComponentTypeService', {
+    factory: () => DEFAULT_CONTENT_LOADER_COMPONENT
+  });
 
 
 @Component({
@@ -29,7 +35,7 @@ export class RootRouteComponent<T extends ContentNodeContentType> {
 
   readonly #routesManager = inject(RouteManager<T>);
 
-  readonly contentComponentType = inject(ContentComponentTypeService);
+  readonly contentComponentType = inject(ContentComponentTypeService, {optional: true});
   readonly routeNodes$ = this.#routesManager.currentRouteNodes$;
 
   onRouteSelected(node: RouteNode<T>): void {

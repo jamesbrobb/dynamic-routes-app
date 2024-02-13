@@ -6,10 +6,13 @@ import {BehaviorSubject} from "rxjs";
 import {MenuConfigService} from "../../config/menu/menu.providers";
 import {MenuConfig, MenuItemNode} from "../../config/menu/menu-config";
 import {RouteManager} from "../../route";
-import {SideMenuLoaderDirective} from "../side-menu-loader/side-menu-loader.directive";
+import {DEFAULT_SIDE_MENU_COMPONENT, SideMenuLoaderDirective} from "../side-menu-loader/side-menu-loader.directive";
 
 
-export const MenuComponentTypeService = new InjectionToken<string>('MenuComponentTypeService')
+export const MenuComponentTypeService = new InjectionToken<string>(
+  'MenuComponentTypeService', {
+    factory: () => DEFAULT_SIDE_MENU_COMPONENT
+  })
 
 
 @Component({
@@ -29,7 +32,7 @@ export class SideMenuContainerComponent {
   readonly #currentNodes = new BehaviorSubject<MenuItemNode[]>([])
 
   readonly menuConfig: MenuConfig = inject(MenuConfigService);
-  readonly menuComponentType = inject(MenuComponentTypeService);
+  readonly menuComponentType = inject(MenuComponentTypeService, {optional: true});
   readonly currentNodes$ = this.#currentNodes.asObservable();
 
 

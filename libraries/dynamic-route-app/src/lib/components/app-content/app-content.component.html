@@ -1,3 +1,14 @@
 @if (routeNodes && routeNodes.length > 0) {
-    <pre><p>{{routeNodes[routeNodes.length - 1] | json}}</p></pre>
+
+  <div class="explanation">
+    <p>This is the default placeholder content view.</p>
+    <p>You're seeing this for one of two reasons:</p>
+    <ol>
+      <li>You're just checking this out and haven't tried to add your own content yet.</li>
+      <li>You've tried adding your own content and failed abysmally.</li>
+    </ol>
+  </div>
+  <mat-divider class="divider"></mat-divider>
+  <div>Current node:</div>
+  <pre><p>{{routeNodes[routeNodes.length - 1] | json}}</p></pre>
 }

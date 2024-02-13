@@ -116,8 +116,8 @@ export class SideMenuComponent implements OnChanges {
       })
     }
 
-    nodes.reverse().forEach((node, index) => {
-      node.active = index + 1;
+    nodes.forEach((node, index) => {
+      node.active = Math.min(index + 1, 2);
     })
   }
 }

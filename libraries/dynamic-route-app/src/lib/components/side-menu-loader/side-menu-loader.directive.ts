@@ -1,4 +1,4 @@
-import {DestroyRef, Directive, EventEmitter, inject, Input, Output, SimpleChanges} from "@angular/core";
+import {DestroyRef, Directive, EventEmitter, inject, Input, Output} from "@angular/core";
 import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
 import {MenuItemNode} from "../../config/menu/menu-config";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -11,6 +11,7 @@ export interface SideMenuComponentIO {
   nodeSelected: EventEmitter<MenuItemNode>;
 }
 
+export const DEFAULT_SIDE_MENU_COMPONENT = 'default-side-menu';
 
 
 @Directive({
@@ -28,6 +29,19 @@ export class SideMenuLoaderDirective extends ComponentLoaderIOBase<SideMenuCompo
   @Output() nodeSelected = new EventEmitter<MenuItemNode>();
 
   readonly #destroyRef = inject(DestroyRef);
+  readonly #loader = inject(ComponentLoaderDirective<SideMenuComponentIO>);
+
+  constructor() {
+    super();
+
+    this.#loader.componentLoaded
+      .pipe(takeUntilDestroyed())
+      .subscribe(({success, type}) => {
+        if(!success && type !== DEFAULT_SIDE_MENU_COMPONENT) {
+          this.#loader.loadComponent(DEFAULT_SIDE_MENU_COMPONENT);
+        }
+      });
+  }
 
   protected override setUpInstance(): void {
 
