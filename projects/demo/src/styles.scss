@@ -1,10 +1,34 @@
 @use "normalize.css";
 @use '@angular/material' as mat;
 @use "@jamesbenrobb/styles/theme" as theme;
+@use "jbr-dra-styles" as dra;
 
+
+$themes: theme.get-default-themes();
+$light-theme: nth($themes, 1);
+$typography: nth($themes, 3);
+
+$dark-primary: mat.define-palette(mat.$light-blue-palette, 500, 100, 900);
+$dark-accent: mat.define-palette(mat.$amber-palette, 500, 100, 900);
+$dark-warn: mat.define-palette(mat.$red-palette, 500, 100, 900);
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $dark-primary,
+    accent: $dark-accent,
+    warn: $dark-warn,
+  ),
+  typography: $typography
+));
+
+@include theme.set-themes($light-theme, $dark-theme, $typography);
+@include theme.set-form-themes($light-theme, $dark-theme);
 
 html {
   box-sizing: border-box;
+}
+body {
+  @include dra.setJBRDRAVars($light-theme, $dark-theme, $side-menu-width: 320px);
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -13,5 +37,4 @@ html {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@include theme.set-default-themes();
-@include theme.set-default-form-themes();
+

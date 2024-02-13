@@ -1,9 +1,12 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, EventEmitter,
   inject,
-  Inject
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges
 } from '@angular/core';
 
 import {NgClass} from "@angular/common";
@@ -14,10 +17,7 @@ import {MatButtonModule} from "@angular/material/button";
 
 import {openClose, rotate} from "@jamesbenrobb/ui";
 
-import {MenuConfig, MenuItemNode} from "../../config/menu/menu-config";
-import {MenuConfigService} from "../../config/menu/menu.providers";
-import {RouteManager} from "../../route";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MenuItemNode} from "../../config/menu/menu-config";
 
 
 @Component({
@@ -38,10 +38,14 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
     rotate()
   ]
 })
-export class SideMenuComponent {
+export class SideMenuComponent implements OnChanges {
+
+  @Input() menuNodes?: MenuItemNode[];
+  @Input() currentNodes?: MenuItemNode[];
+
+  @Output() nodeSelected = new EventEmitter<MenuItemNode>();
 
   #changeDetectorRef = inject(ChangeDetectorRef);
-  #routeManager = inject(RouteManager);
 
   #currentNodes?: MenuItemNode[];
 
@@ -50,24 +54,18 @@ export class SideMenuComponent {
 
   readonly hasChild = (_: number, node: MenuItemNode) => !!node.children && node.children.length > 0;
 
-  constructor(@Inject(MenuConfigService) config: MenuConfig) {
-    this.dataSource.data = config;
-    this.treeControl.dataNodes = config;
-
-    this.#routeManager.urlChange$
-      .pipe(takeUntilDestroyed())
-      .subscribe((url) => {
-        this.#onUrlUpdate(url);
-      });
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['menuNodes']) {
+      const nodes: MenuItemNode[] = changes['menuNodes'].currentValue || [];
+      this.dataSource.data = nodes;
+      this.treeControl.dataNodes = nodes;
+    }
+    if(changes['currentNodes']) {
+      this.#currentNodesUpdated(changes['currentNodes'].currentValue || []);
+    }
   }
 
-  #onUrlUpdate(url: string): void {
-
-    if(!url) {
-      return;
-    }
-
-    const nodes: MenuItemNode[] = this.#getCurrentNodes(url);
+  #currentNodesUpdated(nodes: MenuItemNode[]): void {
 
     this.#setExpanded(nodes);
     this.#setActive(nodes);
@@ -77,7 +75,7 @@ export class SideMenuComponent {
   }
 
   onItemClick(node: MenuItemNode): void {
-    this.#routeManager.navigateByUrl(node.path);
+    this.nodeSelected.emit(node);
   }
 
   onGroupClick(node: MenuItemNode): void {
@@ -90,38 +88,7 @@ export class SideMenuComponent {
       return;
     }
 
-    this.#routeManager.navigateByUrl(node.path);
-  }
-
-  #getCurrentNodes(url: string): MenuItemNode[] {
-
-    const frags: string[] = url.split(/(?=\/)/)
-      .filter(value => !!value);
-
-    let node: MenuItemNode | undefined,
-      nodes: MenuItemNode[] = this.treeControl.dataNodes,
-      currentNodes: MenuItemNode[] = [],
-      frag: string = '';
-
-    frags.map((frg: string, index: number) => {
-
-      frag = `${frag}${frg}`;
-      node = nodes.find((value: MenuItemNode) => value.path === frag);
-
-      if(!node) {
-        return;
-      }
-
-      currentNodes.unshift(node);
-
-      if(!node.children) {
-        return;
-      }
-
-      nodes = node.children;
-    });
-
-    return currentNodes;
+    this.nodeSelected.emit(node);
   }
 
   #setExpanded(nodes: MenuItemNode[]): void {

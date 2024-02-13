@@ -1,0 +1,5 @@
+<jbr-dra-side-menu class="side-menu"
+  [menuNodes]="menuConfig"
+  [currentNodes]="(currentNodes$ | async) || undefined"
+  (nodeSelected)="onNodeSelected($event)">
+</jbr-dra-side-menu>
