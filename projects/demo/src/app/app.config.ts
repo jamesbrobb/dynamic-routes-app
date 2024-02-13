@@ -6,7 +6,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     ...getJBRDRAAppProviders(
       'assets/route-config.json',
-      'Demo App'
+      {
+        appName: 'Demo App',
+      }
     )
   ]
 };

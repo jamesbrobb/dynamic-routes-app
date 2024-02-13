@@ -1,5 +1,6 @@
-<jbr-dra-side-menu class="side-menu"
+
+<ng-container sideMenuLoader="{{menuComponentType}}"
   [menuNodes]="menuConfig"
   [currentNodes]="(currentNodes$ | async) || undefined"
   (nodeSelected)="onNodeSelected($event)">
-</jbr-dra-side-menu>
+</ng-container>

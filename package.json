@@ -27,7 +27,7 @@
     "@jamesbenrobb/ng": "^1.0.3",
     "@jamesbenrobb/styles": "^1.0.4",
     "@jamesbenrobb/types": "^1.0.0",
-    "@jamesbenrobb/ui": "^1.0.8",
+    "@jamesbenrobb/ui": "^1.0.10",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -1,19 +1,22 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, InjectionToken} from '@angular/core';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {AsyncPipe} from "@angular/common";
+import {BehaviorSubject} from "rxjs";
 
 import {MenuConfigService} from "../../config/menu/menu.providers";
 import {MenuConfig, MenuItemNode} from "../../config/menu/menu-config";
 import {RouteManager} from "../../route";
-import {SideMenuComponent} from "../side-menu/side-menu.component";
-import {BehaviorSubject} from "rxjs";
-import {AsyncPipe} from "@angular/common";
+import {SideMenuLoaderDirective} from "../side-menu-loader/side-menu-loader.directive";
+
+
+export const MenuComponentTypeService = new InjectionToken<string>('MenuComponentTypeService')
 
 
 @Component({
   selector: 'jbr-dra-side-menu-container',
   standalone: true,
   imports: [
-    SideMenuComponent,
+    SideMenuLoaderDirective,
     AsyncPipe
   ],
   templateUrl: './side-menu-container.component.html',
@@ -26,6 +29,7 @@ export class SideMenuContainerComponent {
   readonly #currentNodes = new BehaviorSubject<MenuItemNode[]>([])
 
   readonly menuConfig: MenuConfig = inject(MenuConfigService);
+  readonly menuComponentType = inject(MenuComponentTypeService);
   readonly currentNodes$ = this.#currentNodes.asObservable();
 
 
