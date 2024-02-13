@@ -4,9 +4,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MediaMatcher} from "@angular/cdk/layout";
+
 import {ContentNodeContentType, RouteManager} from "../../route";
-import {AppContentComponent} from "../app-content/app-content.component";
 import {SideMenuContainerComponent} from "../side-menu-container/side-menu-container.component";
+import {AppContentContainerComponent} from "../app-content-container/app-content-container.component";
 
 
 @Component({
@@ -17,7 +18,7 @@ import {SideMenuContainerComponent} from "../side-menu-container/side-menu-conta
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,
-    AppContentComponent,
+    AppContentContainerComponent,
     SideMenuContainerComponent
   ],
   templateUrl: './app-layout-container.component.html',

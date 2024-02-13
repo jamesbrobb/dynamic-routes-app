@@ -1,20 +1,21 @@
 import {EnvironmentProviders, makeEnvironmentProviders} from "@angular/core";
-import {ComponentLoaderMap, ComponentLoaderMapService} from "@jamesbenrobb/ui";
+import {ComponentLoaderMapService} from "@jamesbenrobb/ui";
+import {MenuComponentTypeService} from "../side-menu-container/side-menu-container.component";
 
 
-const componentMap: ComponentLoaderMap = {
-  'default-side-menu': {
-    import: () => import('../side-menu/side-menu.component'),
-    componentName: 'SideMenuComponent'
-  },
-}
-
-
-export function getDefaultSideMenuProviders(): EnvironmentProviders {
+export function getSideMenuComponentProviders(sideMenuComponentType?: string): EnvironmentProviders {
 
   return makeEnvironmentProviders([{
     provide: ComponentLoaderMapService,
-    useValue: componentMap,
+    useValue:  {
+      'default-side-menu': {
+        import: () => import('../side-menu/side-menu.component'),
+        componentName: 'SideMenuComponent'
+      }
+    },
     multi: true
+  }, {
+    provide: MenuComponentTypeService,
+    useValue: sideMenuComponentType || 'default-side-menu'
   }]);
 }

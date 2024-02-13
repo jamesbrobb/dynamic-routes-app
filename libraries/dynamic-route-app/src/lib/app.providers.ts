@@ -1,16 +1,16 @@
 import {EnvironmentProviders, importProvidersFrom, Provider, Type} from "@angular/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {getComponentLoaderProviders} from "@jamesbenrobb/ui";
-import {ContentNodeContentType, getAllChildNodes, getRouteProviders, JBRDRARootRouteComponent} from "./route";
+import {ContentNodeContentType, getAllChildNodes, getRouteProviders} from "./route";
 import {getMenuProviders} from "./config";
-import {getDefaultSideMenuProviders} from "./components/side-menu-loader/side-menu-loader.providers";
-import {MenuComponentTypeService} from "./components/side-menu-container/side-menu-container.component";
+import {getSideMenuComponentProviders} from "./components/side-menu-loader/side-menu-loader.providers";
+import {getContentComponentProviders} from "./components/app-content-loader/app-content-loader.providers";
 
 
 export type JBRDRAAppProviderOptions<T extends ContentNodeContentType> = {
   appName?: string,
   sideMenuComponentType?: string,
-  rootComponent?: Type<JBRDRARootRouteComponent<T>>,
+  contentComponentType?: string,
   getAllChildNodes?: getAllChildNodes<T>
 }
 
@@ -26,15 +26,11 @@ export function getJBRDRAAppProviders<T extends ContentNodeContentType>(
     ...getRouteProviders<T>(
       routeConfigPath,
       options?.appName || '',
-      options?.rootComponent,
       options?.getAllChildNodes
     ),
     getMenuProviders(),
     getComponentLoaderProviders(),
-    getDefaultSideMenuProviders(),
-    {
-      provide: MenuComponentTypeService,
-      useValue: options?.sideMenuComponentType || 'default-side-menu'
-    }
+    getSideMenuComponentProviders(options?.sideMenuComponentType),
+    getContentComponentProviders(options?.contentComponentType)
   ];
 }

@@ -2,18 +2,14 @@ import {Routes} from "@angular/router";
 import {shouldRedirect} from "./route.guards";
 import {getRouteNodes} from "./route.resolvers";
 import {ContentNodeContentType} from "./config/route-config.types";
-import {DefaultRootRouteComponent} from "./components/root-route.component";
-import {Type} from "@angular/core";
-import {JBRDRARootRouteComponent} from "./components/root-route.component.type";
+import {RootRouteComponent} from "./components/root-route.component";
 
 
-export function getAppRoutes<T extends ContentNodeContentType>(
-  rootComponent?: Type<JBRDRARootRouteComponent<T>>
-): Routes {
+export function getAppRoutes<T extends ContentNodeContentType>(): Routes {
   return [
     {
       path: '**',
-      component: rootComponent || DefaultRootRouteComponent<T>,
+      component: RootRouteComponent<T>,
       canActivate: [shouldRedirect],
       resolve: {
         routeNodes: getRouteNodes<T>

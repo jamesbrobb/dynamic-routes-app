@@ -1,6 +1,9 @@
 @if (routeNodes$ | async; as routeNodes) {
 
   @if (routeNodes.length > 0) {
-    <pre><p>{{routeNodes[routeNodes.length - 1] | json}}</p></pre>
+    <ng-container appContentLoader="{{contentComponentType}}"
+      [routeNodes]="routeNodes"
+      (routeSelected)="onRouteSelected($event)">
+    </ng-container>
   }
 }

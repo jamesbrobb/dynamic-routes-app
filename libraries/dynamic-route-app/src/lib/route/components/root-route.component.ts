@@ -1,15 +1,17 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, InjectionToken} from '@angular/core';
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 import {MatDividerModule} from "@angular/material/divider";
-import {ContentNodeContentType} from "../config/route-config.types";
+import {ContentNodeContentType, RouteNode} from "../config/route-config.types";
 import {RouteManager} from "../route.manager";
 import {BreadcrumbsComponent} from "../../components/breadcrumbs/breadcrumbs.component";
-import {JBRDRARootRouteComponent} from "./root-route.component.type";
+import {AppContentLoaderDirective} from "../../components/app-content-loader/app-content-loader.directive";
 
+
+export const ContentComponentTypeService = new InjectionToken<string>('ContentComponentTypeService');
 
 
 @Component({
-  selector: 'jbr-dra-default-root-route',
+  selector: 'jbr-dra-root-route',
   standalone: true,
   templateUrl: './root-route.component.html',
   imports: [
@@ -17,13 +19,20 @@ import {JBRDRARootRouteComponent} from "./root-route.component.type";
     BreadcrumbsComponent,
     MatDividerModule,
     JsonPipe,
-    AsyncPipe
+    AsyncPipe,
+    AppContentLoaderDirective
   ],
   styleUrls: ['./root-route.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DefaultRootRouteComponent<T extends ContentNodeContentType> implements JBRDRARootRouteComponent<T> {
+export class RootRouteComponent<T extends ContentNodeContentType> {
 
   readonly #routesManager = inject(RouteManager<T>);
+
+  readonly contentComponentType = inject(ContentComponentTypeService);
   readonly routeNodes$ = this.#routesManager.currentRouteNodes$;
+
+  onRouteSelected(node: RouteNode<T>): void {
+    this.#routesManager.navigateByNode(node);
+  }
 }

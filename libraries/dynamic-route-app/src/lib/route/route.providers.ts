@@ -7,19 +7,17 @@ import {getAppRoutes} from "./routes";
 import {ContentNodeContentType, getAllChildNodes, RoutesConfig} from "./config/route-config.types";
 import {RouteManager} from "./route.manager";
 import {NgRouterAdaptor} from "../ng/route/ng-router.adaptor";
-import {JBRDRARootRouteComponent} from "./components/root-route.component.type";
 
 
 
 export function getRouteProviders<T extends ContentNodeContentType>(
   configPath: string,
   appName: string,
-  rootComponent?: Type<JBRDRARootRouteComponent<T>>,
   getAllChildNodes?: getAllChildNodes<T>
 ): (Provider | EnvironmentProviders)[] {
   return [
     getRouteConfigProviders(configPath),
-    provideRouter(getAppRoutes<T>(rootComponent)),
+    provideRouter(getAppRoutes<T>()),
     {
       provide: RouteManager<T>,
       useFactory: (configLoader: ConfigLoader<RoutesConfig<T>>, router: Router, titleService: Title) => {

@@ -1,0 +1,19 @@
+
+@if (routeNodes$ | async; as routeNodes) {
+  @if (!routeNodes || routeNodes.length === 0) {
+
+    <div>
+      <h1>404</h1>
+      <p>Page not found</p>
+    </div>
+
+  } @else if (routeNodes.length > 1) {
+
+    <div class="breadcrumbs-container mat-typography">
+      <jbr-dra-breadcrumbs class="breadcrumbs" [routeNodes]="routeNodes" (breadCrumbSelected)="onRouteSelected($event)"></jbr-dra-breadcrumbs>
+      <mat-divider></mat-divider>
+    </div>
+  }
+}
+
+<router-outlet></router-outlet>
