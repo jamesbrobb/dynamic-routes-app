@@ -9,7 +9,8 @@
     "test": "ng test",
     "build-lib-prod": "ng build dynamic-route-app --configuration production",
     "build-app-prod": "ng build demo --configuration production",
-    "build-prod": "npm run build-lib-prod && npm run build-app-prod"
+    "build-prod": "npm run build-lib-prod && npm run build-app-prod",
+    "publish-lib": "npm publish dist/libraries/@jamesbenrobb/dynamic-route-app"
   },
   "private": true,
   "dependencies": {
@@ -27,7 +28,7 @@
     "@jamesbenrobb/ng": "^1.0.3",
     "@jamesbenrobb/styles": "^1.0.4",
     "@jamesbenrobb/types": "^1.0.0",
-    "@jamesbenrobb/ui": "^1.0.10",
+    "@jamesbenrobb/ui": "^1.0.12",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
