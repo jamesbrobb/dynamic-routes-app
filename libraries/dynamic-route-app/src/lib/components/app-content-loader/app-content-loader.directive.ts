@@ -26,16 +26,15 @@ export class AppContentLoaderDirective<T extends ContentNodeContentType> extends
   @Output() routeSelected = new EventEmitter<RouteNode<T>>();
 
   readonly #destroyRef = inject(DestroyRef);
-  readonly #loader = inject(ComponentLoaderDirective<T>);
 
   constructor() {
     super();
 
-    this.#loader.componentLoaded
+    this.loader.componentLoaded
       .pipe(takeUntilDestroyed())
       .subscribe(({success, type}) => {
         if(!success && type !== DEFAULT_CONTENT_LOADER_COMPONENT) {
-          this.#loader.loadComponent(DEFAULT_CONTENT_LOADER_COMPONENT);
+          this.loadComponent(DEFAULT_CONTENT_LOADER_COMPONENT);
         }
       });
   }

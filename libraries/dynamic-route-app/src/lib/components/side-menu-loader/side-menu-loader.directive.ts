@@ -29,16 +29,15 @@ export class SideMenuLoaderDirective extends ComponentLoaderIOBase<SideMenuCompo
   @Output() nodeSelected = new EventEmitter<MenuItemNode>();
 
   readonly #destroyRef = inject(DestroyRef);
-  readonly #loader = inject(ComponentLoaderDirective<SideMenuComponentIO>);
 
   constructor() {
     super();
 
-    this.#loader.componentLoaded
+    this.loader.componentLoaded
       .pipe(takeUntilDestroyed())
       .subscribe(({success, type}) => {
         if(!success && type !== DEFAULT_SIDE_MENU_COMPONENT) {
-          this.#loader.loadComponent(DEFAULT_SIDE_MENU_COMPONENT);
+          this.loadComponent(DEFAULT_SIDE_MENU_COMPONENT);
         }
       });
   }
