@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {JsonPipe} from "@angular/common";
-import {ContentNodeContentType, RouteNode} from "../../route";
-import {ContentLoaderComponentIO} from "../app-content-loader/app-content-loader.directive";
 import {MatDivider} from "@angular/material/divider";
+
+import {ContentNode, ContentNodeContentType, RouteNode} from "../../route";
+import {ContentLoaderComponentIO} from "../app-content-loader/app-content-loader.directive";
 
 
 @Component({
@@ -17,5 +18,7 @@ import {MatDivider} from "@angular/material/divider";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DefaultAppContentComponent<T extends ContentNodeContentType> implements ContentLoaderComponentIO<T> {
-  @Input() routeNodes?: RouteNode<T>[];
+  @Input() routeNodes: RouteNode<T>[] | undefined;
+  @Input() currentNode: ContentNode<T> | undefined
+  @Input() currentContent: T | undefined
 }

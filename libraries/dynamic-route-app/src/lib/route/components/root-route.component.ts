@@ -8,6 +8,8 @@ import {
   AppContentLoaderDirective,
   DEFAULT_CONTENT_LOADER_COMPONENT
 } from "../../components/app-content-loader/app-content-loader.directive";
+import {GuardTypePipe} from "@jamesbenrobb/ui";
+import {isContentNode} from "../config/route-config.type-guards";
 
 
 export const ContentComponentTypeService = new InjectionToken<string>(
@@ -26,7 +28,8 @@ export const ContentComponentTypeService = new InjectionToken<string>(
     MatDividerModule,
     JsonPipe,
     AsyncPipe,
-    AppContentLoaderDirective
+    AppContentLoaderDirective,
+    GuardTypePipe
   ],
   styleUrls: ['./root-route.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -37,6 +40,8 @@ export class RootRouteComponent<T extends ContentNodeContentType> {
 
   readonly contentComponentType = inject(ContentComponentTypeService, {optional: true});
   readonly routeNodes$ = this.#routesManager.currentRouteNodes$;
+
+  readonly isContentNode = isContentNode;
 
   onRouteSelected(node: RouteNode<T>): void {
     this.#routesManager.navigateByNode(node);

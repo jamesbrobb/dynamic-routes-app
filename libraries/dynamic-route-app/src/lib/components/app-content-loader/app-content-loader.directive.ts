@@ -1,11 +1,13 @@
 import {DestroyRef, Directive, EventEmitter, inject, Input, Output} from "@angular/core";
 import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
-import {ContentNodeContentType, RouteNode} from "../../route";
+import {ContentNode, ContentNodeContentType, RouteNode} from "../../route";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 
 export type ContentLoaderComponentIO<T extends ContentNodeContentType> = {
-  routeNodes?: RouteNode<T>[]
+  routeNodes: RouteNode<T>[] | undefined
+  currentNode: ContentNode<T> | undefined
+  currentContent: T | undefined
   routeSelected?: EventEmitter<RouteNode<T>>
 }
 
@@ -22,7 +24,9 @@ export const DEFAULT_CONTENT_LOADER_COMPONENT = 'default-app-content';
 })
 export class AppContentLoaderDirective<T extends ContentNodeContentType> extends ComponentLoaderIOBase<ContentLoaderComponentIO<T>> implements ContentLoaderComponentIO<T>{
 
-  @Input() routeNodes?: RouteNode<T>[];
+  @Input() routeNodes: RouteNode<T>[] | undefined;
+  @Input() currentNode: ContentNode<T> | undefined;
+  @Input() currentContent: T | undefined;
   @Output() routeSelected = new EventEmitter<RouteNode<T>>();
 
   readonly #destroyRef = inject(DestroyRef);
@@ -56,6 +60,8 @@ export class AppContentLoaderDirective<T extends ContentNodeContentType> extends
       return;
     }
     this.instance.setInput('routeNodes', this.routeNodes);
+    this.instance.setInput('currentNode', this.currentNode);
+    this.instance.setInput('currentContent', this.currentContent);
   }
 
   protected override cleanUpInstance(): void {}
