@@ -27,6 +27,6 @@ export type ParentNode<T extends ContentNodeContentType> = {
 } & RouteNodeBase
 
 
-export type RouteNode<T extends ContentNodeContentType> = RouteNodeBase | RedirectNode | ContentNode<T> | ParentNode<T>
+export type RouteNode<T extends ContentNodeContentType> =  RedirectNode | ContentNode<T> | ParentNode<T>
 
-export type getAllChildNodes<T extends ContentNodeContentType> = (node: RouteNode<T>) => (RouteNodeBase | RouteNode<T>)[]
+export type getAllChildNodes<T extends ContentNodeContentType> = (node: RouteNode<T>) => RouteNode<T>[]
