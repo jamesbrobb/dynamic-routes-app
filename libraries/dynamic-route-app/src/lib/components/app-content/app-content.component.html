@@ -10,8 +10,6 @@
     </ul>
   </div>
   <mat-divider class="divider"></mat-divider>
-  <div>Current node:</div>
-  <pre><p>{{currentNode | json}}</p></pre>
-  <div>Current content:</div>
-  <pre><p>{{currentContent | json}}</p></pre>
+
+  <jbr-dra-debug-panel [nodes]="routeNodes" [node]="currentNode" [content]="currentContent"></jbr-dra-debug-panel>
 }

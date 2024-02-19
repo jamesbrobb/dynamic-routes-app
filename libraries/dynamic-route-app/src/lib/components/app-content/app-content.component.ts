@@ -4,6 +4,7 @@ import {MatDivider} from "@angular/material/divider";
 
 import {ContentNode, ContentNodeContentType, RouteNode} from "../../route";
 import {ContentLoaderComponentIO} from "../app-content-loader/app-content-loader.directive";
+import {DebugPanelComponent} from "../debug-panel/debug-panel.component";
 
 
 @Component({
@@ -11,7 +12,8 @@ import {ContentLoaderComponentIO} from "../app-content-loader/app-content-loader
   standalone: true,
   imports: [
     JsonPipe,
-    MatDivider
+    MatDivider,
+    DebugPanelComponent
   ],
   templateUrl: './app-content.component.html',
   styleUrl: './app-content.component.scss',
