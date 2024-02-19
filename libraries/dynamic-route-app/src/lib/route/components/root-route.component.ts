@@ -41,8 +41,6 @@ export class RootRouteComponent<T extends ContentNodeContentType> {
   readonly contentComponentType = inject(ContentComponentTypeService, {optional: true});
   readonly routeNodes$ = this.#routesManager.currentRouteNodes$;
 
-  readonly isContentNode = isContentNode;
-
   onRouteSelected(node: RouteNode<T>): void {
     this.#routesManager.navigateByNode(node);
   }

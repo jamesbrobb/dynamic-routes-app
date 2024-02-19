@@ -1,13 +1,20 @@
 @if (routeNodes$ | async; as routeNodes) {
 
   @if (routeNodes.length > 0) {
-    @if (routeNodes[routeNodes.length - 1] | guardType: isContentNode; as contentNode) {
-      <ng-container appContentLoader="{{contentComponentType}}"
-        [routeNodes]="routeNodes"
-        [currentNode]="contentNode"
-        [currentContent]="contentNode.content"
-        (routeSelected)="onRouteSelected($event)">
-      </ng-container>
-    }
+
+    <ng-container appContentLoader="{{contentComponentType}}"
+      [routeNodes]="routeNodes"
+      [currentNode]="routeNodes[routeNodes.length - 1]"
+      (routeSelected)="onRouteSelected($event)">
+    </ng-container>
+
+  } @else {
+
+    <div class="alert alert-warning">
+      <p>
+        No content found for this route.
+      </p>
+    </div>
+
   }
 }
