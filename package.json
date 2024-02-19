@@ -10,7 +10,7 @@
     "build-lib-prod": "ng build dynamic-route-app --configuration production",
     "build-app-prod": "ng build demo --configuration production",
     "build-prod": "npm run build-lib-prod && npm run build-app-prod",
-    "publish-lib": "npm publish dist/libraries/@jamesbenrobb/dynamic-route-app"
+    "publish-lib": "npm run build-lib-prod && npm publish dist/libraries/@jamesbenrobb/dynamic-route-app"
   },
   "private": true,
   "dependencies": {
