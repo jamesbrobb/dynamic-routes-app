@@ -75,14 +75,16 @@ export class SideMenuComponent implements OnChanges {
   }
 
   onItemClick(node: MenuItemNode): void {
+    console.log(node);
     this.nodeSelected.emit(node);
   }
 
   onGroupClick(node: MenuItemNode): void {
+    console.log(node);
 
-    if(!this.treeControl.isExpanded(node)) {
+    /*if(!this.treeControl.isExpanded(node)) {
       this.treeControl.collapseDescendants(node);
-    }
+    }*/
 
     if(!node.hasContent) {
       return;
@@ -101,11 +103,19 @@ export class SideMenuComponent implements OnChanges {
         });
     }
 
-    nodes.forEach((node) => {
+    nodes.forEach((node, index) => {
+
+      if(index === 0) {
+        if(!this.#currentNodes && !this.treeControl.isExpanded(node)) {
+          this.treeControl.expand(node);
+        }
+        return;
+      }
+
       if(!this.treeControl.isExpanded(node)){
         this.treeControl.expand(node);
       }
-    })
+    });
   }
 
   #setActive(nodes: MenuItemNode[]): void {
