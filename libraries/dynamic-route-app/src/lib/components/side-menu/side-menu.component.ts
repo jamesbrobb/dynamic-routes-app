@@ -75,16 +75,10 @@ export class SideMenuComponent implements OnChanges {
   }
 
   onItemClick(node: MenuItemNode): void {
-    console.log(node);
     this.nodeSelected.emit(node);
   }
 
   onGroupClick(node: MenuItemNode): void {
-    console.log(node);
-
-    /*if(!this.treeControl.isExpanded(node)) {
-      this.treeControl.collapseDescendants(node);
-    }*/
 
     if(!node.hasContent) {
       return;
@@ -98,21 +92,13 @@ export class SideMenuComponent implements OnChanges {
     nodes.forEach((node, index) => {
 
       if(index === 0) {
-        /*
-        if you have children
-        if you are in currentNodes
-        if you are not expanded
 
-        if you are not in currentNodes
-        if you are not expanded
-         */
         if(!node.children) {
           return;
         }
 
         if(this.#currentNodes && this.#currentNodes.indexOf(node) !== -1) {
 
-          // you are a current node
           if(this.treeControl.isExpanded(node)) {
             this.treeControl.collapse(node);
           }
