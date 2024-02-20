@@ -95,20 +95,35 @@ export class SideMenuComponent implements OnChanges {
 
   #setExpanded(nodes: MenuItemNode[]): void {
 
-    if(this.#currentNodes) {
-      this.#currentNodes
-        .filter((node) => !nodes.find((nd) => nd === node))
-        .forEach((node) => {
-          this.treeControl.collapse(node);
-        });
-    }
-
     nodes.forEach((node, index) => {
 
       if(index === 0) {
-        if(!this.#currentNodes && !this.treeControl.isExpanded(node)) {
-          this.treeControl.expand(node);
+        /*
+        if you have children
+        if you are in currentNodes
+        if you are not expanded
+
+        if you are not in currentNodes
+        if you are not expanded
+         */
+        if(!node.children) {
+          return;
         }
+
+        if(this.#currentNodes && this.#currentNodes.indexOf(node) !== -1) {
+
+          // you are a current node
+          if(this.treeControl.isExpanded(node)) {
+            this.treeControl.collapse(node);
+          }
+
+        } else {
+
+          if(!this.treeControl.isExpanded(node)) {
+            this.treeControl.expand(node);
+          }
+        }
+
         return;
       }
 
@@ -116,6 +131,14 @@ export class SideMenuComponent implements OnChanges {
         this.treeControl.expand(node);
       }
     });
+
+    if(this.#currentNodes) {
+      this.#currentNodes
+        .filter((node) => !nodes.find((nd) => nd === node))
+        .forEach((node) => {
+          this.treeControl.collapse(node);
+        });
+    }
   }
 
   #setActive(nodes: MenuItemNode[]): void {
