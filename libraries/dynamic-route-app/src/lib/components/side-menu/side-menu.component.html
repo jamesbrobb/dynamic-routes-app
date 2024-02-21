@@ -14,8 +14,7 @@
               [attr.aria-label]="'Toggle ' + node.label"
               [ngClass]="'active-'+ node.active"
               (click)="onGroupClick(node)">
-        <mat-icon [@rotate]="treeControl.isExpanded(node)">
-          chevron_right
+        <mat-icon svgIcon="chevron_right" [@rotate]="treeControl.isExpanded(node)">
         </mat-icon>
         {{node.label}}
       </button>
