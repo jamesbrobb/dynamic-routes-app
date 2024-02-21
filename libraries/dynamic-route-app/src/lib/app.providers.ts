@@ -1,6 +1,7 @@
 import {EnvironmentProviders, importProvidersFrom, Provider, Type} from "@angular/core";
+import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {getComponentLoaderProviders} from "@jamesbenrobb/ui";
+import {getComponentLoaderProviders, registerButtonIcons} from "@jamesbenrobb/ui";
 import {ContentNodeContentType, getAllChildNodes, getRouteProviders} from "./route";
 import {getMenuProviders} from "./config";
 import {getSideMenuComponentProviders} from "./components/side-menu-loader/side-menu-loader.providers";
@@ -21,7 +22,8 @@ export function getJBRDRAAppProviders<T extends ContentNodeContentType>(
 ): (Provider | EnvironmentProviders)[] {
   return [
     importProvidersFrom(
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      HttpClientModule
     ),
     ...getRouteProviders<T>(
       routeConfigPath,
@@ -31,6 +33,7 @@ export function getJBRDRAAppProviders<T extends ContentNodeContentType>(
     getMenuProviders(),
     getComponentLoaderProviders(),
     getSideMenuComponentProviders(options?.sideMenuComponentType),
-    getContentComponentProviders(options?.contentComponentType)
+    getContentComponentProviders(options?.contentComponentType),
+    registerButtonIcons('assets/icons/')
   ];
 }
