@@ -2,37 +2,52 @@
 @use "@jamesbenrobb/styles/theme" as theme;
 
 
-@mixin setJBRDRAVars($light-theme: null, $dark-theme: null, $side-menu-width: null) {
+@mixin setJBRDRAVars($light-theme: null, $dark-theme: null, $typography: null, $side-menu-width: null) {
 
-  $default-themes: theme.get-default-themes();
-
-  @if $light-theme == null {
-    $light-theme: nth($default-themes, 1);
-  }
-
-  @if $dark-theme == null {
-    $dark-theme: nth($default-themes, 2);
-  }
-
-  @if $side-menu-width != null {
-    --jbr-dra-side-menu-width: #{$side-menu-width};
+  @if $light-theme == null or $dark-theme == null or $typography == null {
+    $default-themes: theme.get-default-themes();
+    @if $light-theme == null {
+      $light-theme: nth($default-themes, 1);
+    }
+    @if $dark-theme == null {
+      $dark-theme: nth($default-themes, 2);
+    }
+    @if $typography == null {
+      $typography: nth($default-themes, 3);
+    }
   }
 
   $palettes: theme.get-mode-palettes-for(primary, $light-theme, $dark-theme);
   $light-palette: nth($palettes, 1);
   $dark-palette: nth($palettes, 2);
 
-  $link-colors: theme.get-mode-colors-for(
-    $palette-type: primary,
-    $type: default,
-    $light-theme: $light-theme,
-    $dark-theme: $dark-theme
-  );
+  $primary-palettes: theme.get-mode-palettes-for(primary, $light-theme, $dark-theme);
 
-  --jbr-dra-link-color: #{nth($link-colors, 1)};
-  --jbr-dra-side-menu-item-color-1: var(--jbr-dra-link-color);
+  $light-icon: theme.get-color-from-palette(nth($primary-palettes, 1), default-contrast);
+  $dark-icon: theme.get-color-from-palette(nth($primary-palettes, 2), default-contrast);
 
-  @media (prefers-color-scheme: dark) {
-    --jbr-dra-link-color: #{nth($link-colors, 2)};
+  $light-link-color: theme.get-color-from-palette(nth($primary-palettes, 1), default);
+  $dark-link-color: theme.get-color-from-palette(nth($primary-palettes, 2), default);
+
+  @include theme.set-themes($light-theme, $dark-theme, $typography, 'dark-mode');
+  @include theme.set-form-themes($light-theme, $dark-theme, 'dark-mode');
+
+  :root {
+
+    @if $side-menu-width != null {
+      --jbr-dra-side-menu-width: #{$side-menu-width};
+    }
+
+    --jbr-dra-link-color: #{$light-link-color};
+    --jbr-dra-side-menu-item-color-1: var(--jbr-dra-link-color);
+    --jbr-dark-mode-btn-icon-color: #{$light-icon};
+    --jbr-pre-background-color: rgba(0, 0, 0, 0.05);
+
+    .dark-mode {
+      --jbr-dra-link-color: #{$dark-link-color};
+      --jbr-dra-side-menu-item-color-1: var(--jbr-dra-link-color);
+      --jbr-dark-mode-btn-icon-color: #{$dark-icon};
+      --jbr-pre-background-color: rgba(255, 255, 255, 0.05);
+    }
   }
 }

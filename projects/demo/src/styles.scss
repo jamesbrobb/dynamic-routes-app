@@ -21,14 +21,10 @@ $dark-theme: mat.define-dark-theme((
   typography: $typography
 ));
 
-@include theme.set-themes($light-theme, $dark-theme, $typography);
-@include theme.set-form-themes($light-theme, $dark-theme);
+@include dra.setJBRDRAVars($light-theme, $dark-theme, $typography, $side-menu-width: 320px);
 
 html {
   box-sizing: border-box;
-}
-body {
-  @include dra.setJBRDRAVars($light-theme, $dark-theme, $side-menu-width: 320px);
 }
 *, *:before, *:after {
   box-sizing: inherit;
