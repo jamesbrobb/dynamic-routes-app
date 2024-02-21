@@ -1,7 +1,15 @@
 <div class="container" [class.is-mobile]="mobileQuery.matches">
 
   <mat-toolbar color="primary" class="toolbar">
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon [svgIcon]="snav.opened ? 'menu_open' : 'menu'"
+                aria-hidden="false"
+                [attr.aria-label]="snav.opened ? 'menu open icon' : 'menu icon'">
+      </mat-icon>
+    </button>
+
+    <jbr-ui-dark-mode-btn class="dark-mode-btn"></jbr-ui-dark-mode-btn>
+
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">

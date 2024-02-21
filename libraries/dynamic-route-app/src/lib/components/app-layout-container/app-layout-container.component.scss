@@ -1,5 +1,8 @@
 :host {
   --side-menu-width: var(--jbr-dra-side-menu-width, 250px);
+  --toolbar-position: fixed;
+  --toolbar-z-index: 2;
+  --side-nav-flex: 1 0 auto;
 
   display: block;
   width: 100%;
@@ -15,7 +18,7 @@
     right: 0;
 
     .sidenav-container {
-      flex: 1;
+      flex: var(--side-nav-flex);
     }
 
     .side-menu-container {
@@ -24,16 +27,20 @@
       flex-grow: 0;
     }
 
-    &.is-mobile {
+    .toolbar {
+      position: var(--toolbar-position);
+      z-index: var(--toolbar-z-index);
+      justify-content: space-between;
 
-      .toolbar {
-        position: fixed;
-        z-index: 2;
+      .dark-mode-btn {
+        margin: 0 9px;
       }
+    }
 
-      .sidenav-container {
-        flex: 1 0 auto;
-      }
+    &:not(.is-mobile) {
+      --toolbar-position: initial;
+      --toolbar-z-index: initial;
+      --side-nav-flex: 1;
     }
   }
 }

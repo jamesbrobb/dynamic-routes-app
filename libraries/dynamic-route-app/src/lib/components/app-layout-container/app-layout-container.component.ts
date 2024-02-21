@@ -8,6 +8,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
 import {ContentNodeContentType, RouteManager} from "../../route";
 import {SideMenuContainerComponent} from "../side-menu-container/side-menu-container.component";
 import {AppContentContainerComponent} from "../app-content-container/app-content-container.component";
+import {DarkModeBtnComponent} from "@jamesbenrobb/ui";
 
 
 @Component({
@@ -19,7 +20,8 @@ import {AppContentContainerComponent} from "../app-content-container/app-content
     MatSidenavModule,
     MatToolbarModule,
     AppContentContainerComponent,
-    SideMenuContainerComponent
+    SideMenuContainerComponent,
+    DarkModeBtnComponent
   ],
   templateUrl: './app-layout-container.component.html',
   styleUrl: './app-layout-container.component.scss',
