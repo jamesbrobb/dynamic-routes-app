@@ -1,27 +1,88 @@
-# DynamicRoutesApp
+# Dynamic Route App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
+## What.
 
-## Development server
+A simple configurable shell for quickly creating applications with dynamic routing. [Demo.](https://dynamic-routes-app-demo.jamesrobb.work/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Why.
 
-## Code scaffolding
+Whilst creating Documentor (which required dynamic/configurable routes) it occurred to me that it may be useful to abstract out the underlying implementation/behaviour to use for other apps. So i did.    
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## What not.
 
-## Build
+A replacement for more complex routing. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## How.
 
-## Running unit tests
+### Install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm i @jamesbenrobb/dynamic-route-app@latest
+```
 
-## Running end-to-end tests
+### Define route config json
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```json
+{
+  "routes": [{
+    "path": "/",
+    "redirectTo": "one"
+  }, {
+    "path": "one",
+    "content": {
+      "someProp": "someValue"
+    }
+  }, {
+    "path": "two",
+    "label": "2",
+    "content": {
+      "someOtherProp": "someOtherValue"
+    },
+    "children": [{
+      "path": "two-first-child",
+      "content": {}
+    }]
+  }, {
+    "path": "three",
+    "content": {
+      "someOtherProp": "someOtherValue"
+    },
+    "children": [{
+      "path": "three-first-child",
+      "content": {}
+    }, {
+      "path": "three-second-child",
+      "content": {},
+      "children": [{
+        "path": "three-second-child-first-child",
+        "content": {}
+      }]
+    }]
+  }]
+}
+```
 
-## Further help
+### Add provider
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```ts
+import {ApplicationConfig} from '@angular/core';
+import {getJBRDRAAppProviders} from "@jamesbenrobb/dynamic-route-app";
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...getJBRDRAAppProviders(
+      'assets/route-config.json',
+      {appName: 'Demo App'}
+    )
+  ]
+};
+```
+
+### Declare styles
+
+```scss
+@use "@jamesbenrobb/dynamic-route-app/styles/jbr-dra-styles" as dra;
+
+@include dra.setJBRDRAVars();
+```

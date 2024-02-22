@@ -29,8 +29,8 @@
   $light-link-color: theme.get-color-from-palette(nth($primary-palettes, 1), default);
   $dark-link-color: theme.get-color-from-palette(nth($primary-palettes, 2), default);
 
-  @include theme.set-themes($light-theme, $dark-theme, $typography, 'dark-mode');
-  @include theme.set-form-themes($light-theme, $dark-theme, 'dark-mode');
+  @include theme.set-themes($light-theme, $dark-theme, $typography, '[data-color-mode="dark"]');
+  @include theme.set-form-themes($light-theme, $dark-theme, '[data-color-mode="dark"]');
 
   :root {
 
@@ -43,7 +43,7 @@
     --jbr-dark-mode-btn-icon-color: #{$light-icon};
     --jbr-pre-background-color: rgba(0, 0, 0, 0.05);
 
-    .dark-mode {
+    [data-color-mode="dark"] {
       --jbr-dra-link-color: #{$dark-link-color};
       --jbr-dra-side-menu-item-color-1: var(--jbr-dra-link-color);
       --jbr-dark-mode-btn-icon-color: #{$dark-icon};
