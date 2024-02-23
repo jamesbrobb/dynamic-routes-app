@@ -24,6 +24,7 @@ A replacement for more complex routing.
 2. [Define route config json](#define-route-config-json)
 3. [Add provider](#add-provider)
 4. [Declare styles](#declare-styles)
+5. [Extending for your own use](#extending-for-your-own-use)
    <br/>
    <br/>
 
@@ -102,6 +103,87 @@ export const appConfig: ApplicationConfig = {
 
 @include dra.setJBRDRAVars();
 ```
+<br/>
+
+## Extending for your own use
+<br/>
+
+### Provider options
+
+```ts
+export type JBRDRAAppProviderOptions<T extends ContentNodeContentType> = {
+  appName?: string
+  getAllChildNodes?: getAllChildNodes<T>
+  contentComponentType?: string
+  sideMenuComponentType?: string
+}
+```
+<br/>
+
+### Add your own content component
+
+Create a component that implements [`ContentLoaderComponentIO`](https://github.com/jamesbrobb/dynamic-routes-app/blob/main/libraries/dynamic-route-app/src/lib/components/app-content-loader/app-content-loader.directive.ts#L7)
+
+```ts
+import {Component} from "@angular/core";
+import {ContentLoaderComponentIO} from "@jamesbenrobb/dynamic-routes-app";
+
+@Component({
+  selector: 'my-content-component',
+  templateUrl: "...",
+  styleUrls: ['...'],
+  standalone: true
+})
+export class MyContentComponent implements ContentLoaderComponentIO<YourContentType> {
+  routeNodes: RouteNode<YourContentType>[] | undefined
+  currentNode: RouteNode<YourContentType> | undefined
+  currentContent: YourContentType | undefined
+}
+```
+
+Register the component with the `ComponentLoaderMapService` (see details on registering components [here](https://github.com/jamesbrobb/jbr/tree/main/libraries/ui/src/lib/component-loader)) and add the provider to your app
+
+```ts
+import {Provider} from "@angular/core";
+import {ComponentLoaderMapService} from "@jamesbenrobb/ui";
 
 
+const provider: Provider = {
+  provide: ComponentLoaderMapService,
+  useValue: {
+    'my-content-component': {
+      import: () => import('./my-content.component'),
+      componentName: 'MyContentComponent'
+    }
+  },
+  multi: true
+}
+```
 
+Supply the registered name of you content component to `getJBRDRAAppProviders`
+
+```ts
+import {ApplicationConfig} from '@angular/core';
+import {getJBRDRAAppProviders} from "@jamesbenrobb/dynamic-route-app";
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...getJBRDRAAppProviders(
+      'assets/route-config.json',
+      {
+        appName: 'My app name',
+        contentComponentType: 'my-content-component'
+      }
+    )
+  ]
+};
+```
+
+<br/>
+
+### Add your own menu
+
+### Add your own header content
+
+### Declaring light and dark themes

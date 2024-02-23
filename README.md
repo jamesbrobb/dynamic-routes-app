@@ -24,6 +24,7 @@ A replacement for more complex routing.
 2. [Define route config json](#define-route-config-json)
 3. [Add provider](#add-provider)
 4. [Declare styles](#declare-styles)
+5. [Extending for your own use](#extending-for-your-own-use)
 <br/>
 <br/>
 
@@ -102,3 +103,6 @@ export const appConfig: ApplicationConfig = {
 
 @include dra.setJBRDRAVars();
 ```
+<br/>
+
+## Extending for your own use
