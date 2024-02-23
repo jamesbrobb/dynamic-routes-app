@@ -18,6 +18,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {openClose, rotate} from "@jamesbenrobb/ui";
 
 import {MenuItemNode} from "../../config/menu/menu-config";
+import {SideMenuComponentIO} from "../side-menu-loader/side-menu-loader.directive";
 
 
 @Component({
@@ -38,7 +39,7 @@ import {MenuItemNode} from "../../config/menu/menu-config";
     rotate()
   ]
 })
-export class SideMenuComponent implements OnChanges {
+export class SideMenuComponent implements OnChanges, SideMenuComponentIO {
 
   @Input() menuNodes?: MenuItemNode[];
   @Input() currentNodes?: MenuItemNode[];
