@@ -21,7 +21,7 @@
     "@jamesbenrobb/core": "^1.0.6",
     "@jamesbenrobb/styles": "^1.0.9",
     "@jamesbenrobb/types": "^1.0.3",
-    "@jamesbenrobb/ui": "^1.0.29",
+    "@jamesbenrobb/ui": "^1.0.35",
     "rxjs": "~7.8.0",
     "zone.js": "~0.14.3"
   },
