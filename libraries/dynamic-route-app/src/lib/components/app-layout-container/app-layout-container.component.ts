@@ -31,7 +31,6 @@ export class AppLayoutContainerComponent<T extends ContentNodeContentType> {
 
   @ViewChild(MatSidenav, { static: true }) sidenav?: MatSidenav;
 
-  readonly #routesManager = inject(RouteManager<T>);
   readonly #mobileQueryListener: () => void;
 
   readonly mobileQuery: MediaQueryList;
@@ -40,14 +39,6 @@ export class AppLayoutContainerComponent<T extends ContentNodeContentType> {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.#mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.#mobileQueryListener);
-
-    this.#routesManager.urlChange$.subscribe(() => {
-      if(!this.mobileQuery.matches) {
-        return;
-      }
-
-      this.sidenav?.close();
-    })
   }
 
   ngOnInit(): void {

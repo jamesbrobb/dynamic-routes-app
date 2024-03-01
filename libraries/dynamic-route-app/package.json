@@ -1,6 +1,6 @@
 {
   "name": "@jamesbenrobb/dynamic-route-app",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "author": "James Robb",
   "description": "Angular specific application shell for dynamic routing",
   "repository": {
