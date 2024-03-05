@@ -88,6 +88,11 @@ export class SideMenuComponent implements OnChanges, SideMenuComponentIO {
     this.nodeSelected.emit(node);
   }
 
+  toggleGroup(node: MenuItemNode): void {
+    console.log('toggleGroup', node);
+    this.treeControl.toggle(node);
+  }
+
   #setExpanded(nodes: MenuItemNode[]): void {
 
     nodes.forEach((node, index) => {

@@ -1,6 +1,6 @@
 {
   "name": "@jamesbenrobb/dynamic-route-app",
-  "version": "0.0.24",
+  "version": "0.0.27",
   "author": "James Robb",
   "description": "Angular specific application shell for dynamic routing",
   "repository": {
@@ -19,9 +19,9 @@
     "@angular/platform-browser-dynamic": "^17.2.1",
     "@angular/router": "^17.2.1",
     "@jamesbenrobb/core": "^1.0.6",
-    "@jamesbenrobb/styles": "^1.0.9",
+    "@jamesbenrobb/styles": "^1.0.10",
     "@jamesbenrobb/types": "^1.0.3",
-    "@jamesbenrobb/ui": "^1.0.35",
+    "@jamesbenrobb/ui": "^1.0.36",
     "rxjs": "~7.8.0",
     "zone.js": "~0.14.3"
   },

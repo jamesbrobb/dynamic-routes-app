@@ -1,4 +1,9 @@
-$start-left: 37px;
+@use '@jamesbenrobb/styles/elements' as *;
+
+$start-left: 34px;
+$group-btn-width: 18px;
+$btn-left: calc($start-left/2) - calc($group-btn-width/2);
+$indent: 10px;
 $depth: 8;
 
 
@@ -37,12 +42,19 @@ $depth: 8;
 @mixin _nestedMenuItemPositions($total:1, $i:1) {
   @if $i <= $total {
     &> mat-nested-tree-node {
-      &> div.mat-tree-node > .mat-mdc-button {
-        padding-left: 10px * $i;
+      &> div.mat-tree-node {
+        $left: $indent * ($i - 1);
+        > .mat-mdc-button {
+          padding-left: $left + $start-left;
+        }
+        > .group-btn {
+          left: $left + $btn-left;
+        }
       }
+
       &> div[role=group] {
         &> mat-tree-node > .mat-mdc-button {
-          padding-left: (10px * $i) + $start-left;
+          padding-left: ($indent * $i) + $start-left;
         }
         @include _nestedMenuItemPositions($total, $i + 1);
       }
@@ -82,14 +94,37 @@ $depth: 8;
     }
   }
 
-  mat-tree {
+  .mat-tree {
 
     div[role=group] {
       overflow: hidden;
     }
 
-    &> mat-tree-node > .mat-mdc-button {
-      padding-left: $start-left;
+    .mat-tree-node {
+      position: relative;
+      --mat-tree-node-min-height: 44px;
+      .group-btn {
+        @include button_reset();
+        display: flex;
+        position: absolute;
+
+        .mat-icon {
+          height: 18px;
+          width: 18px;
+        }
+
+        @include _activeMenuItemColours($depth);
+
+        &.active-0:not(:hover) {
+          opacity: var(--inactive-menu-item-opactiy);
+        }
+      }
+    }
+
+    &> mat-tree-node {
+      > .mat-mdc-button {
+        padding-left: $start-left;
+      }
     }
 
     @include _nestedMenuItemPositions(8);

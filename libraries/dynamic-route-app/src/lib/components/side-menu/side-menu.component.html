@@ -14,14 +14,16 @@
               [attr.aria-label]="'Toggle ' + node.label"
               [ngClass]="'active-'+ node.active"
               (click)="onGroupClick(node)">
-        <mat-icon svgIcon="chevron_right" [@rotate]="treeControl.isExpanded(node)">
-        </mat-icon>
         {{node.label}}
+      </button>
+      <button class="group-btn"
+              [ngClass]="'active-'+ node.active"
+              (click)="toggleGroup(node)">
+        <mat-icon svgIcon="chevron_right" [@rotate]="treeControl.isExpanded(node)"></mat-icon>
       </button>
     </div>
 
-    <div [@openClose]="treeControl.isExpanded(node)"
-         role="group">
+    <div [@openClose]="treeControl.isExpanded(node)" role="group">
       <ng-container matTreeNodeOutlet></ng-container>
     </div>
   </mat-nested-tree-node>
