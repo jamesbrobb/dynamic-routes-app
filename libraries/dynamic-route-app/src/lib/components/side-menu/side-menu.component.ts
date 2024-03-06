@@ -89,7 +89,6 @@ export class SideMenuComponent implements OnChanges, SideMenuComponentIO {
   }
 
   toggleGroup(node: MenuItemNode): void {
-    console.log('toggleGroup', node);
     this.treeControl.toggle(node);
   }
 

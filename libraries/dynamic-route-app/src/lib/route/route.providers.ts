@@ -1,4 +1,4 @@
-import {EnvironmentProviders, Provider, Type} from "@angular/core";
+import {EnvironmentProviders, Provider} from "@angular/core";
 import {provideRouter, Router} from "@angular/router";
 import {ConfigLoader} from "@jamesbenrobb/core";
 import {Title} from "@angular/platform-browser";
