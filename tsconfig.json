@@ -6,6 +6,9 @@
     "paths": {
       "@jamesbenrobb/dynamic-route-app": [
         "./dist/libraries/@jamesbenrobb/dynamic-route-app"
+      ],
+      "@jamesbenrobb/dynamic-routes": [
+        "./dist/libraries/@jamesbenrobb/dynamic-routes"
       ]
     },
     "forceConsistentCasingInFileNames": true,

@@ -160,6 +160,39 @@
           }
         }
       }
+    },
+    "dynamic-routes": {
+      "projectType": "library",
+      "root": "libraries/dynamic-routes",
+      "sourceRoot": "libraries/dynamic-routes/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libraries/dynamic-routes/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libraries/dynamic-routes/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libraries/dynamic-routes/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libraries/dynamic-routes/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
