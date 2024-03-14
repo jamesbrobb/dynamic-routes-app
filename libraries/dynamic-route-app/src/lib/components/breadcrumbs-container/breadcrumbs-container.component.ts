@@ -3,6 +3,7 @@ import {MatDivider} from "@angular/material/divider";
 import {BreadcrumbsComponent} from "../breadcrumbs/breadcrumbs.component";
 import {MenuService} from "../../core/menu/menu.service";
 import {AsyncPipe} from "@angular/common";
+import {map} from "rxjs";
 
 
 @Component({
@@ -19,4 +20,7 @@ import {AsyncPipe} from "@angular/common";
 })
 export class BreadcrumbsContainerComponent {
   protected readonly menuService = inject(MenuService);
+  protected readonly currentNodes$ = this.menuService.currentNodes$.pipe(
+    map(nodes => [...nodes].reverse())
+  );
 }

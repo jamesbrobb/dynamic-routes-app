@@ -4,27 +4,27 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {getComponentLoaderProviders, registerButtonIcons} from "@jamesbenrobb/ui";
 import {getSideMenuComponentProviders} from "./components/side-menu-loader/side-menu-loader.providers";
 import {getMenuProviders} from "./providers/menu.providers";
-import {getRouteProviders} from "./providers/route.providers";
+import {AppSettings} from "./app.settings";
+import {DEFAULT_SIDE_MENU_COMPONENT} from "./components/side-menu-loader/side-menu-loader.directive";
 
 
-export type JBRDRAAppProviderOptions = {
-  appName?: string,
-  sideMenuComponentType?: string
-}
-
-
-export function getJBRDRAAppProviders(
-  options?: JBRDRAAppProviderOptions
-): (Provider | EnvironmentProviders)[] {
+export function getJBRDRAAppProviders(settings?: AppSettings): (Provider | EnvironmentProviders)[] {
   return [
     importProvidersFrom(
       BrowserAnimationsModule,
       HttpClientModule
     ),
-    getRouteProviders(),
     getMenuProviders(),
     getComponentLoaderProviders(),
-    getSideMenuComponentProviders(options?.sideMenuComponentType),
-    registerButtonIcons('assets/icons/')
+    getSideMenuComponentProviders(),
+    registerButtonIcons('assets/icons/'),
+    {
+      provide: AppSettings,
+      useValue: {
+        showColorModeBtn: settings?.showColorModeBtn ?? true,
+        showBreadcrumbs: settings?.showBreadcrumbs ?? true,
+        sideMenuComponentType: settings?.sideMenuComponentType ?? DEFAULT_SIDE_MENU_COMPONENT
+      }
+    }
   ];
 }

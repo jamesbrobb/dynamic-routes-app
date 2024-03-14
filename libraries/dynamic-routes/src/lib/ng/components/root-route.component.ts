@@ -1,15 +1,12 @@
 import {ChangeDetectionStrategy, Component, inject, InjectionToken} from '@angular/core';
-import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
-import {MatDividerModule} from "@angular/material/divider";
-import {ContentNodeContentType, RouteNode} from "../config/route-config.types";
-import {RouteManager} from "../route.manager";
-import {BreadcrumbsComponent} from "../../components/breadcrumbs/breadcrumbs.component";
+import {AsyncPipe, NgIf} from "@angular/common";
+
 import {
   AppContentLoaderDirective,
   DEFAULT_CONTENT_LOADER_COMPONENT
 } from "../../components/app-content-loader/app-content-loader.directive";
-import {GuardTypePipe} from "@jamesbenrobb/ui";
-import {isContentNode} from "../config/route-config.type-guards";
+import {ContentNodeContentType, RouteManager, RouteNode} from "../../core";
+
 
 
 export const ContentComponentTypeService = new InjectionToken<string>(
@@ -24,12 +21,8 @@ export const ContentComponentTypeService = new InjectionToken<string>(
   templateUrl: './root-route.component.html',
   imports: [
     NgIf,
-    BreadcrumbsComponent,
-    MatDividerModule,
-    JsonPipe,
     AsyncPipe,
-    AppContentLoaderDirective,
-    GuardTypePipe
+    AppContentLoaderDirective
   ],
   styleUrls: ['./root-route.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

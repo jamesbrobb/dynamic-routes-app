@@ -1,14 +1,12 @@
-import {ChangeDetectionStrategy, Component, inject, InjectionToken} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 
 import {MenuService} from "../../core/menu/menu.service";
-import {DEFAULT_SIDE_MENU_COMPONENT, SideMenuLoaderDirective} from "../side-menu-loader/side-menu-loader.directive";
+import {SideMenuLoaderDirective} from "../side-menu-loader/side-menu-loader.directive";
+import {AppSettings} from "../../app.settings";
 
 
-export const MenuComponentTypeService = new InjectionToken<string>(
-  'MenuComponentTypeService', {
-    factory: () => DEFAULT_SIDE_MENU_COMPONENT
-  })
+
 
 
 @Component({
@@ -25,5 +23,5 @@ export const MenuComponentTypeService = new InjectionToken<string>(
 export class SideMenuContainerComponent {
 
   protected readonly menuService = inject(MenuService);
-  protected readonly menuComponentType = inject(MenuComponentTypeService, {optional: true});
+  protected readonly menuComponentType = inject(AppSettings).sideMenuComponentType;
 }

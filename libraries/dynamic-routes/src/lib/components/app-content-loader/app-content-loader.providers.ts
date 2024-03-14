@@ -1,6 +1,7 @@
 import {ComponentLoaderMapService} from "@jamesbenrobb/ui";
 import {EnvironmentProviders, makeEnvironmentProviders, Provider} from "@angular/core";
-import {ContentComponentTypeService} from "../../route/components/root-route.component";
+import {ContentComponentTypeService} from "../../ng/components/root-route.component";
+
 
 
 export function getContentComponentProviders(componentType?: string): EnvironmentProviders {

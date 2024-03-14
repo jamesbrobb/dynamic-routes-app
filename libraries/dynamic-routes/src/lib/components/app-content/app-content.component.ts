@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {JsonPipe} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
 
-import {ContentNode, ContentNodeContentType, RouteNode} from "../../route";
+import {ContentNode, ContentNodeContentType, RouteNode} from "../../core";
 import {ContentLoaderComponentIO} from "../app-content-loader/app-content-loader.directive";
 import {DebugPanelComponent} from "../debug-panel/debug-panel.component";
 

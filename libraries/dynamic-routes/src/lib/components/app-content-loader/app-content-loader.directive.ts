@@ -1,7 +1,8 @@
 import {DestroyRef, Directive, EventEmitter, inject, Input, Output} from "@angular/core";
-import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
-import {ContentNodeContentType, isContentNode, RouteNode} from "../../route";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
+import {ContentNodeContentType, isContentNode, RouteNode} from "../../core";
+
 
 
 export type ContentLoaderComponentIO<T extends ContentNodeContentType> = {

@@ -1,11 +1,10 @@
-import {EnvironmentProviders, makeEnvironmentProviders, Provider} from "@angular/core";
+import {EnvironmentProviders, makeEnvironmentProviders} from "@angular/core";
 import {ComponentLoaderMapService} from "@jamesbenrobb/ui";
-import {MenuComponentTypeService} from "../side-menu-container/side-menu-container.component";
 
 
-export function getSideMenuComponentProviders(sideMenuComponentType?: string): EnvironmentProviders {
+export function getSideMenuComponentProviders(): EnvironmentProviders {
 
-  const providers: Provider[] = [{
+  return makeEnvironmentProviders([{
     provide: ComponentLoaderMapService,
     useValue:  {
       'default-side-menu': {
@@ -14,14 +13,5 @@ export function getSideMenuComponentProviders(sideMenuComponentType?: string): E
       }
     },
     multi: true
-  }];
-
-  if(sideMenuComponentType) {
-    providers.push({
-      provide: MenuComponentTypeService,
-      useValue: sideMenuComponentType
-    });
-  }
-
-  return makeEnvironmentProviders([providers]);
+  }]);
 }

@@ -1,0 +1,37 @@
+{
+  "routes": [{
+    "path": "/",
+    "redirectTo": "one"
+  }, {
+    "path": "one",
+    "content": {
+      "someProp": "someValue"
+    }
+  }, {
+    "path": "two",
+    "label": "2",
+    "content": {
+      "someOtherProp": "someOtherValue"
+    },
+    "children": [{
+      "path": "two-first-child",
+      "content": {}
+    }]
+  }, {
+    "path": "three",
+    "content": {
+      "someOtherProp": "someOtherValue"
+    },
+    "children": [{
+      "path": "three-first-child",
+      "content": {}
+    }, {
+      "path": "three-second-child",
+      "content": {},
+      "children": [{
+        "path": "three-second-child-first-child",
+        "content": {}
+      }]
+    }]
+  }]
+}

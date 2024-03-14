@@ -1,6 +1,6 @@
 import {BehaviorSubject} from "rxjs";
 import {MenuConfig, MenuItemNode} from "./menu-config";
-import {RouteManager} from "../route/route.manager";
+import {NoopRouteManager, RouteManager} from "../route/route.manager";
 
 
 export class MenuService {
@@ -15,15 +15,11 @@ export class MenuService {
     return [...this.#menuConfig];
   }
 
-  constructor(routeManager: RouteManager, config?: MenuConfig) {
-
-    if(!config) {
-      console.warn('No menu config provided');
-    }
+  constructor(routeManager?: RouteManager, config?: MenuConfig) {
 
     this.#menuConfig = config || [];
 
-    this.#routeManager = routeManager;
+    this.#routeManager = routeManager || new NoopRouteManager();
     this.#routeManager.urlChange$
       .subscribe(url => {
         this.#onUrlUpdate(url);

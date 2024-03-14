@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, viewChild, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component, inject,
+  InjectionToken,
+  viewChild
+} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
@@ -8,6 +14,7 @@ import {DarkModeBtnComponent} from "@jamesbenrobb/ui";
 
 import {SideMenuContainerComponent} from "../side-menu-container/side-menu-container.component";
 import {BreadcrumbsContainerComponent} from "../breadcrumbs-container/breadcrumbs-container.component";
+import {AppSettings} from "../../app.settings";
 
 
 @Component({
@@ -30,11 +37,10 @@ export class AppLayoutContainerComponent {
 
   readonly sidenav = viewChild.required(MatSidenav);
 
-  //@ViewChild(MatSidenav, { static: true }) sidenav?: MatSidenav;
-
   readonly #mobileQueryListener: () => void;
 
-  readonly mobileQuery: MediaQueryList;
+  protected readonly appSettings = inject(AppSettings);
+  protected readonly mobileQuery: MediaQueryList;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

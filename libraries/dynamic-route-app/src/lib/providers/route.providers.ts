@@ -1,9 +1,5 @@
-import {EnvironmentProviders, makeEnvironmentProviders} from "@angular/core";
-import {RouteManager} from "../core/route/route.manager";
+import {InjectionToken} from "@angular/core";
+import {RouteManager} from "../core";
 
+export const RouteManagerService = new InjectionToken<RouteManager>('RouteManagerService');
 
-export function getRouteProviders(): EnvironmentProviders {
-  return makeEnvironmentProviders([
-    RouteManager
-  ]);
-}
