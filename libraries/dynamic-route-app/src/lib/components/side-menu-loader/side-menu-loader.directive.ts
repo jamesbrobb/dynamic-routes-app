@@ -1,8 +1,9 @@
-import {DestroyRef, Directive, EventEmitter, inject, Input, Output} from "@angular/core";
-import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
-import {MenuItemNode} from "../../config/menu/menu-config";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {tap} from "rxjs";
+import {DestroyRef, Directive, EventEmitter, inject, Input, Output} from "@angular/core";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
+
+import {MenuItemNode} from "../../core/menu/menu-config";
 
 
 export interface SideMenuComponentIO {

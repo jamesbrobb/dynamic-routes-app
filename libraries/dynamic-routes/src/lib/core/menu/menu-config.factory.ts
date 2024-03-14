@@ -1,17 +1,9 @@
-import {isContentNode, isParentNode, isRedirectNode, RouteNode} from "../../route";
+import {MenuConfig, MenuItemNode, MenuConfigFactory} from '@jamesbenrobb/dynamic-route-app';
+import {RouteNode} from "../route-config.types";
+import {isContentNode, isParentNode, isRedirectNode} from "../route-config.type-guards";
 
 
-export type MenuConfig = MenuItemNode[];
-
-export type MenuItemNode = {
-  label: string
-  path: string
-  hasContent: boolean
-  active: number
-  children?: MenuItemNode[]
-}
-
-export function menuConfigFactory(routeConfig: RouteNode<any>[]): MenuConfig {
+export const menuConfigFactory: MenuConfigFactory<RouteNode<any>> = (routeConfig: RouteNode<any>[]): MenuConfig => {
 
   return routeConfig
     .filter((routeNode) => !isRedirectNode(routeNode))

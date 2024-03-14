@@ -23,7 +23,9 @@
 
     <mat-sidenav-content>
 
-      <jbr-dra-app-content-container></jbr-dra-app-content-container>
+      <jbr-dra-breadcrumbs-container class="breadcrumbs-container"></jbr-dra-breadcrumbs-container>
+
+      <ng-content select="[jbr-dra-app-content]"></ng-content>
 
     </mat-sidenav-content>
 

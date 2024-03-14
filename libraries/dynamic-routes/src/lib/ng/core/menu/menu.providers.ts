@@ -1,10 +1,8 @@
-import {EnvironmentProviders, InjectionToken, makeEnvironmentProviders} from "@angular/core";
+import {EnvironmentProviders, makeEnvironmentProviders} from "@angular/core";
 import {ConfigLoader} from "@jamesbenrobb/core";
-import {RoutesConfig, RoutesConfigService} from "../../route";
-import {MenuConfig, menuConfigFactory} from "./menu-config";
-
-
-export const MenuConfigService = new InjectionToken<MenuConfig>('MenuConfigService');
+import {MenuConfigService} from "@jamesbenrobb/dynamic-route-app";
+import {menuConfigFactory, RoutesConfig} from "../../../core";
+import {RoutesConfigService} from "../route-config.providers";
 
 
 export function getMenuProviders(): EnvironmentProviders {

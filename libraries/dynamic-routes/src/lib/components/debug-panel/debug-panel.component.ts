@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {JsonPipe} from "@angular/common";
-import {ContentNodeContentType, RouteNode} from "../../route";
+import {ContentNodeContentType, RouteNode} from "../../core";
+
 
 @Component({
   selector: 'jbr-dra-debug-panel',

@@ -1,14 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, viewChild, ViewChild} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MediaMatcher} from "@angular/cdk/layout";
-
-import {ContentNodeContentType, RouteManager} from "../../route";
-import {SideMenuContainerComponent} from "../side-menu-container/side-menu-container.component";
-import {AppContentContainerComponent} from "../app-content-container/app-content-container.component";
 import {DarkModeBtnComponent} from "@jamesbenrobb/ui";
+
+import {SideMenuContainerComponent} from "../side-menu-container/side-menu-container.component";
+import {BreadcrumbsContainerComponent} from "../breadcrumbs-container/breadcrumbs-container.component";
 
 
 @Component({
@@ -19,17 +18,19 @@ import {DarkModeBtnComponent} from "@jamesbenrobb/ui";
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,
-    AppContentContainerComponent,
     SideMenuContainerComponent,
-    DarkModeBtnComponent
+    DarkModeBtnComponent,
+    BreadcrumbsContainerComponent
   ],
   templateUrl: './app-layout-container.component.html',
   styleUrl: './app-layout-container.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppLayoutContainerComponent<T extends ContentNodeContentType> {
+export class AppLayoutContainerComponent {
 
-  @ViewChild(MatSidenav, { static: true }) sidenav?: MatSidenav;
+  readonly sidenav = viewChild.required(MatSidenav);
+
+  //@ViewChild(MatSidenav, { static: true }) sidenav?: MatSidenav;
 
   readonly #mobileQueryListener: () => void;
 
@@ -47,7 +48,7 @@ export class AppLayoutContainerComponent<T extends ContentNodeContentType> {
       return;
     }
 
-    this.sidenav?.open();
+    this.sidenav().open();
   }
 
   ngOnDestroy(): void {

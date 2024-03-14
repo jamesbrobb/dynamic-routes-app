@@ -9,7 +9,7 @@ import {
 import {NgForOf, NgIf} from "@angular/common";
 import {GuardTypePipe, toWordsPipe} from "@jamesbenrobb/ui";
 
-import {RouteNode, isContentNode, ContentNodeContentType} from "../../route";
+import {MenuItemNode} from "../../core/menu/menu-config";
 
 
 @Component({
@@ -25,14 +25,12 @@ import {RouteNode, isContentNode, ContentNodeContentType} from "../../route";
   styleUrls: ['./breadcrumbs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BreadcrumbsComponent<T extends ContentNodeContentType> {
+export class BreadcrumbsComponent {
 
-  @Input({required: true}) routeNodes?: RouteNode<T>[];
-  @Output() breadCrumbSelected = new EventEmitter<RouteNode<T>>()
+  @Input({required: true}) menuItemNodes?: MenuItemNode[];
+  @Output() breadCrumbSelected = new EventEmitter<MenuItemNode>()
 
-  isContentNode = isContentNode;
-
-  selectNode(node: RouteNode<T>) {
+  selectNode(node: MenuItemNode) {
     this.breadCrumbSelected.emit(node);
   }
 }

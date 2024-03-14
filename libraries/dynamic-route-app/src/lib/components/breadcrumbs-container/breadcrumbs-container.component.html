@@ -1,0 +1,7 @@
+<div class="breadcrumbs-container mat-typography">
+  <jbr-dra-breadcrumbs class="breadcrumbs"
+                       [menuItemNodes]="(menuService.currentNodes$ | async) || undefined"
+                       (breadCrumbSelected)="menuService.selectNode($event)">
+  </jbr-dra-breadcrumbs>
+  <mat-divider></mat-divider>
+</div>
