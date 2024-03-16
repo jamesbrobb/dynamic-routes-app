@@ -6,10 +6,10 @@ import {
   Output,
 } from '@angular/core';
 
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
 import {GuardTypePipe, toWordsPipe} from "@jamesbenrobb/ui";
 
-import {MenuItemNode} from "../../core/menu/menu-config";
+import {MenuItemNode} from "../../core";
 
 
 @Component({
@@ -19,7 +19,8 @@ import {MenuItemNode} from "../../core/menu/menu-config";
     NgForOf,
     GuardTypePipe,
     NgIf,
-    toWordsPipe
+    toWordsPipe,
+    NgTemplateOutlet
   ],
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],

@@ -19,7 +19,7 @@ import {openClose, rotate} from "@jamesbenrobb/ui";
 
 
 import {SideMenuComponentIO} from "../side-menu-loader/side-menu-loader.directive";
-import {MenuItemNode} from "../../core/menu/menu-config";
+import {MenuItemNode} from "../../core";
 
 
 @Component({
@@ -138,11 +138,11 @@ export class SideMenuComponent implements OnChanges, SideMenuComponentIO {
     if(this.#currentNodes) {
       this.#currentNodes.forEach((node) => {
         node.active = 0;
-      })
+      });
     }
 
     nodes.forEach((node, index) => {
       node.active = Math.min(index + 1, 2);
-    })
+    });
   }
 }

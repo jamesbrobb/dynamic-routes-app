@@ -3,9 +3,9 @@
 @for (node of menuItemNodes; track node.path) {
     <div class="breadcrumb">
         @if (node.hasContent) {
-            <a class="label" (click)="selectNode(node)">{{node.label || (node.path | words) }}</a>
+            <a class="label" (click)="selectNode(node)">{{(node.label || node.path) | words}}</a>
         } @else {
-            <div class="label">{{node.label || (node.path | words)}}</div>
+            <div class="label">{{(node.label || node.path) | words}}</div>
         }
     </div>
 }

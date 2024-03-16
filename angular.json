@@ -303,6 +303,116 @@
           }
         }
       }
+    },
+    "concrete-route-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/concrete-route-demo",
+      "sourceRoot": "projects/concrete-route-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/concrete-route-demo",
+            "index": "projects/concrete-route-demo/src/index.html",
+            "browser": "projects/concrete-route-demo/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/concrete-route-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/concrete-route-demo/src/favicon.ico",
+              "projects/concrete-route-demo/src/assets",
+              {
+                "glob": "**/*.*",
+                "input": "node_modules/@jamesbenrobb/ui/assets/",
+                "output": "/assets"
+              }
+            ],
+            "styles": [
+              "projects/concrete-route-demo/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "dist/libraries/@jamesbenrobb/dynamic-route-app/styles"
+              ]
+            },
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "codemirror",
+              "deepmerge",
+              "moment",
+              "json-beautify"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "concrete-route-demo:build:production"
+            },
+            "development": {
+              "buildTarget": "concrete-route-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "concrete-route-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/concrete-route-demo/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/concrete-route-demo/src/favicon.ico",
+              "projects/concrete-route-demo/src/assets"
+            ],
+            "styles": [
+              "projects/concrete-route-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }

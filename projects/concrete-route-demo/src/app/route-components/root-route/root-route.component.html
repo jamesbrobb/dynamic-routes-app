@@ -1,0 +1,12 @@
+<div>Current node:</div>
+@if (route) {
+  <pre><p>{{route | json}}</p></pre>
+} @else {
+  <div>No node</div>
+}
+<div>Current content:</div>
+@if (routeData) {
+  <pre><p>{{routeData | json}}</p></pre>
+} @else {
+  <div>No content</div>
+}

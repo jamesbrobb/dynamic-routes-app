@@ -24,7 +24,6 @@ export class RouteManager<T extends ContentNodeContentType> {
     routerAdapter: RouterAdapter<T>,
     getAllChildNodes?: getAllChildNodes<T>
   ) {
-    console.log('RouteManager');
     this.#routes = routes;
     this.#getAllChildNodes = getAllChildNodes;
 

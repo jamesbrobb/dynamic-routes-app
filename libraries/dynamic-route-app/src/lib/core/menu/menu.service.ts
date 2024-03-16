@@ -1,4 +1,4 @@
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, tap} from "rxjs";
 import {MenuConfig, MenuItemNode} from "./menu-config";
 import {NoopRouteManager, RouteManager} from "../route/route.manager";
 
@@ -20,10 +20,9 @@ export class MenuService {
     this.#menuConfig = config || [];
 
     this.#routeManager = routeManager || new NoopRouteManager();
-    this.#routeManager.urlChange$
-      .subscribe(url => {
-        this.#onUrlUpdate(url);
-      });
+    this.#routeManager.urlChange$.pipe(
+      tap(url => this.#onUrlUpdate(url))
+    ).subscribe();
   }
 
   selectNode(node: MenuItemNode): void {
