@@ -1,11 +1,11 @@
 
-@if(currentNodes$ | async; as menuItemNodes) {
+@if(currentNodes$ | async; as navItemNodes) {
 
-  @if(menuItemNodes.length > 1) {
-    <jbr-dra-breadcrumbs class="breadcrumbs mat-typography"
-                         [menuItemNodes]="menuItemNodes"
-                         (breadCrumbSelected)="menuService.selectNode($event)">
-    </jbr-dra-breadcrumbs>
+  @if(navItemNodes.length > 1) {
+    <jbr-breadcrumbs class="breadcrumbs mat-typography"
+                     [navItemNodes]="navItemNodes"
+                     (nodeSelected)="menuService.selectNode($event)">
+    </jbr-breadcrumbs>
     <mat-divider></mat-divider>
   }
 }

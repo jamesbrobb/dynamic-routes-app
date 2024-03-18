@@ -9,6 +9,9 @@
       ],
       "@jamesbenrobb/dynamic-routes": [
         "./dist/libraries/@jamesbenrobb/dynamic-routes"
+      ],
+      "app-shell": [
+        "./dist/app-shell"
       ]
     },
     "forceConsistentCasingInFileNames": true,

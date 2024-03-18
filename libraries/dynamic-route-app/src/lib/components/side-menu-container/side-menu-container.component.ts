@@ -1,12 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 
-import {MenuService} from "../../core/menu/menu.service";
 import {SideMenuLoaderDirective} from "../side-menu-loader/side-menu-loader.directive";
 import {AppSettings} from "../../app.settings";
-
-
-
+import {MenuService} from "../../core/menu/menu.service";
 
 
 @Component({

@@ -1,9 +1,9 @@
+import {map} from "rxjs";
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDivider} from "@angular/material/divider";
-import {BreadcrumbsComponent} from "../breadcrumbs/breadcrumbs.component";
-import {MenuService} from "../../core/menu/menu.service";
 import {AsyncPipe} from "@angular/common";
-import {map} from "rxjs";
+import {BreadcrumbsComponent} from "@jamesbenrobb/ui";
+import {MenuService} from "../../core/menu/menu.service";
 
 
 @Component({
@@ -11,8 +11,8 @@ import {map} from "rxjs";
   standalone: true,
   imports: [
     MatDivider,
-    BreadcrumbsComponent,
-    AsyncPipe
+    AsyncPipe,
+    BreadcrumbsComponent
   ],
   templateUrl: './breadcrumbs-container.component.html',
   styleUrl: './breadcrumbs-container.component.scss',

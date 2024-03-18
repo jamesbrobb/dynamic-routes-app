@@ -1,70 +1,31 @@
-import {BehaviorSubject, tap} from "rxjs";
-import {MenuConfig, MenuItemNode} from "./menu-config";
-import {NoopRouteManager, RouteManager} from "../route/route.manager";
+import {NavigationService, NavItemNode} from "@jamesbenrobb/ui";
+import {RouteManager} from "../route/route.manager";
+import {tap} from "rxjs";
 
 
 export class MenuService {
 
-  readonly #menuConfig: MenuConfig;
+  readonly #navService: NavigationService;
   readonly #routeManager: RouteManager;
-  readonly #currentNodes = new BehaviorSubject<MenuItemNode[]>([])
 
-  readonly currentNodes$ = this.#currentNodes.asObservable();
-
-  get menuNodes(): MenuItemNode[] {
-    return [...this.#menuConfig];
+  get nodes() {
+    return this.#navService.nodes;
   }
 
-  constructor(routeManager?: RouteManager, config?: MenuConfig) {
+  get currentNodes$() {
+    return this.#navService.currentNodes$;
+  }
 
-    this.#menuConfig = config || [];
+  constructor(navService: NavigationService, routeManager: RouteManager) {
+    this.#navService = navService;
+    this.#routeManager = routeManager;
 
-    this.#routeManager = routeManager || new NoopRouteManager();
     this.#routeManager.urlChange$.pipe(
-      tap(url => this.#onUrlUpdate(url))
+      tap(url => this.#navService.onUrlUpdate(url))
     ).subscribe();
   }
 
-  selectNode(node: MenuItemNode): void {
+  selectNode(node: NavItemNode): void {
     this.#routeManager.navigateByUrl(node.path);
-  }
-
-  #onUrlUpdate(url: string): void {
-
-    if (!url) {
-      return;
-    }
-
-    this.#currentNodes.next(this.#getCurrentNodes(url));
-  }
-
-  #getCurrentNodes(url: string): MenuItemNode[] {
-    const frags: string[] = url.split(/(?=\/)/)
-      .filter(value => !!value);
-
-    let node: MenuItemNode | undefined,
-      nodes: MenuItemNode[] = this.menuNodes,
-      currentNodes: MenuItemNode[] = [],
-      frag: string = '';
-
-    frags.map((frg: string, index: number) => {
-
-      frag = `${frag}${frg}`;
-      node = nodes.find((value: MenuItemNode) => value.path === frag);
-
-      if(!node) {
-        return;
-      }
-
-      currentNodes.unshift(node);
-
-      if(!node.children) {
-        return;
-      }
-
-      nodes = node.children;
-    });
-
-    return currentNodes;
   }
 }

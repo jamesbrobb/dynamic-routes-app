@@ -1,15 +1,14 @@
 import {tap} from "rxjs";
 import {DestroyRef, Directive, EventEmitter, inject, Input, Output} from "@angular/core";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {ComponentLoaderDirective, ComponentLoaderIOBase} from "@jamesbenrobb/ui";
+import {ComponentLoaderDirective, ComponentLoaderIOBase, NavItemNode} from "@jamesbenrobb/ui";
 
-import {MenuItemNode} from "../../core/menu/menu-config";
 
 
 export interface SideMenuComponentIO {
-  menuNodes?: MenuItemNode[];
-  currentNodes?: MenuItemNode[];
-  nodeSelected: EventEmitter<MenuItemNode>;
+  menuNodes?: NavItemNode[];
+  currentNodes?: NavItemNode[];
+  nodeSelected: EventEmitter<NavItemNode>;
 }
 
 export const DEFAULT_SIDE_MENU_COMPONENT = 'default-side-menu';
@@ -25,9 +24,9 @@ export const DEFAULT_SIDE_MENU_COMPONENT = 'default-side-menu';
 })
 export class SideMenuLoaderDirective extends ComponentLoaderIOBase<SideMenuComponentIO> implements SideMenuComponentIO {
 
-  @Input() menuNodes?: MenuItemNode[];
-  @Input() currentNodes?: MenuItemNode[];
-  @Output() nodeSelected = new EventEmitter<MenuItemNode>();
+  @Input() menuNodes?: NavItemNode[];
+  @Input() currentNodes?: NavItemNode[];
+  @Output() nodeSelected = new EventEmitter<NavItemNode>();
 
   readonly #destroyRef = inject(DestroyRef);
 

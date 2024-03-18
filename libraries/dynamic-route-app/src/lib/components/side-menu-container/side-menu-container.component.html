@@ -1,6 +1,6 @@
 
 <ng-container sideMenuLoader="{{menuComponentType}}"
-  [menuNodes]="menuService.menuNodes"
+  [menuNodes]="menuService.nodes"
   [currentNodes]="(menuService.currentNodes$ | async) || undefined"
   (nodeSelected)="menuService.selectNode($event)">
 </ng-container>

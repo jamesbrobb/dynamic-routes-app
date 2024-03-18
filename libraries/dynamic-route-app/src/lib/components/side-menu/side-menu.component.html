@@ -1,32 +1,4 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="side-menu-tree">
-
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-    <button mat-button [attr.aria-label]="node.label"
-            [ngClass]="'active-'+ node.active"
-            (click)="onItemClick(node)">
-      {{node.label}}
-    </button>
-  </mat-tree-node>
-
-  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-    <div class="mat-tree-node">
-      <button mat-button matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.label"
-              [ngClass]="'active-'+ node.active"
-              (click)="onGroupClick(node)">
-        {{node.label}}
-      </button>
-      <button class="group-btn"
-              [ngClass]="'active-'+ node.active"
-              (click)="toggleGroup(node)">
-        <mat-icon svgIcon="chevron_right" [@rotate]="treeControl.isExpanded(node)"></mat-icon>
-      </button>
-    </div>
-
-    <div [@openClose]="treeControl.isExpanded(node)" role="group">
-      <ng-container matTreeNodeOutlet></ng-container>
-    </div>
-  </mat-nested-tree-node>
-
-</mat-tree>
-
+<jbr-nav-tree [navNodes]="menuNodes"
+              [currentNodes]="currentNodes"
+              (nodeSelected)="nodeSelected.emit($event)">
+</jbr-nav-tree>

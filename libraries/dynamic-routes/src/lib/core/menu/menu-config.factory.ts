@@ -1,16 +1,16 @@
-import {MenuConfig, MenuItemNode, MenuConfigFactory} from '@jamesbenrobb/dynamic-route-app';
+import {NavConfig, NavItemNode} from "@jamesbenrobb/ui";
 import {RouteNode} from "../route-config.types";
 import {isContentNode, isParentNode, isRedirectNode} from "../route-config.type-guards";
 
 
-export const menuConfigFactory: MenuConfigFactory<RouteNode<any>> = (routeConfig: RouteNode<any>[]): MenuConfig => {
+export const menuConfigFactory = (routeConfig: RouteNode<any>[]): NavConfig => {
 
   return routeConfig
     .filter((routeNode) => !isRedirectNode(routeNode))
     .map((route) => parse(route));
 }
 
-function parse(route: RouteNode<any>, parentPath: string = ''): MenuItemNode {
+function parse(route: RouteNode<any>, parentPath: string = ''): NavItemNode {
 
   const path = `${parentPath}/${route.path}`,
     label = route.label ?? route.path.split('-').join(' '),

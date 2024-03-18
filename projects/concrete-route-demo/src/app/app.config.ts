@@ -3,13 +3,13 @@ import {NavigationEnd, provideRouter, Router, Routes} from '@angular/router';
 import {
   getJBRDRAAppProviders,
   MenuConfigService,
-  MenuItemNode,
   RouteManagerService,
   RouteManager
 } from "@jamesbenrobb/dynamic-route-app";
 
 import { routes } from './app.routes';
 import {filter, map, Observable} from "rxjs";
+import {NavItemNode} from "@jamesbenrobb/ui";
 
 
 export const appConfig: ApplicationConfig = {
@@ -53,15 +53,15 @@ class RouteMan implements RouteManager {
 }
 
 
-function convertRoutes(routes: Routes, parentPath: string = ''): MenuItemNode[] {
+function convertRoutes(routes: Routes, parentPath: string = ''): NavItemNode[] {
   return routes.filter(route => route.path !== '**')
     .filter(route => route.path !== '')
     .filter(route => !route.redirectTo)
     .map(route => {
 
-      const path = `${parentPath}/${route.path || 'no-path'}`;
+      const path = `${parentPath}/${route.path || ''}`;
 
-      const node: MenuItemNode = {
+      const node: NavItemNode = {
         path,
         label: (route.path || '').replaceAll('-', ' '),
         hasContent: !!route.data,
